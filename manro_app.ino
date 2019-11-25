@@ -440,8 +440,8 @@ int handleAlerts()
     {
         alertTimeHold = System.uptime();
         alertFlag = true;
-        Particle.publish("message", ( "WATER LOW (25%) - TURN ON PUMP - " + (Time.format(Time.now(), "%I:%M:%S%p")) ) , PRIVATE);
-        Particle.publish("email", ( "WATER LOW (25%) - TURN ON PUMP - " + (Time.format(Time.now(), "%I:%M:%S%p")) ), PRIVATE);
+        Particle.publish("message", ( "WATER LOW (25%) - TURN ON PUMP - " + (Time.format(Time.now(), "%b %e %a %I:%M:%S %p")) ) , PRIVATE);
+        Particle.publish("email", ( "WATER LOW (25%) - TURN ON PUMP - " + (Time.format(Time.now(), "%b %e %a %I:%M:%S %p")) ), PRIVATE);
         return 1; //alert code 1: first alert given at 25%
     }
 
@@ -449,8 +449,8 @@ int handleAlerts()
     {
         alertTimeHold = System.uptime();
         alertFlag = true;
-        Particle.publish("message",( "WATER LEVEL CRITICAL (10%) - TURN ON PUMP - " + (Time.format(Time.now(), "%I:%M:%S%p")) ), PRIVATE);
-        Particle.publish("email",( "WATER LEVEL CRITICAL (10%) - TURN ON PUMP - " + (Time.format(Time.now(), "%I:%M:%S%p")) ), PRIVATE);
+        Particle.publish("message",( "WATER LEVEL CRITICAL (10%) - TURN ON PUMP - " + (Time.format(Time.now(), "%b %e %a %I:%M:%S %p")) ), PRIVATE);
+        Particle.publish("email",( "WATER LEVEL CRITICAL (10%) - TURN ON PUMP - " + (Time.format(Time.now(), "%b %e %a %I:%M:%S %p")) ), PRIVATE);
         return 2; //alert code 2: second critical alert given at 10%
     }
 
@@ -466,8 +466,8 @@ int handleAlerts()
     {
         alertTimeHold = System.uptime();
         alertFlag = true;
-        Particle.publish("message",( "WATER LEVEL FULL (95%) - TURN OFF PUMP - " + (Time.format(Time.now(), "%I:%M:%S%p")) ), PRIVATE);
-        Particle.publish("email", ( "WATER LEVEL FULL (95%) - TURN OFF PUMP - " + (Time.format(Time.now(), "%I:%M:%S%p")) ), PRIVATE);
+        Particle.publish("message",( "WATER LEVEL FULL (95%) - TURN OFF PUMP - " + (Time.format(Time.now(), "%b %e %a %I:%M:%S %p")) ), PRIVATE);
+        Particle.publish("email", ( "WATER LEVEL FULL (95%) - TURN OFF PUMP - " + (Time.format(Time.now(), "%b %e %a %I:%M:%S %p")) ), PRIVATE);
         return 4; //alert code 4: tank full
     }
 
