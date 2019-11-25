@@ -20,12 +20,7 @@ SYSTEM_MODE(AUTOMATIC);
 #define OLED_DC     D2
 #define OLED_CS     D3
 #define OLED_RESET  D4
-<<<<<<< HEAD
 Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
-=======
-Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, 
-OLED_CS);
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
 */
 
 // use hardware SPI
@@ -53,7 +48,6 @@ Adafruit_SSD1306 display(OLED_DC, OLED_RESET, OLED_CS);
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
-<<<<<<< HEAD
 
 /* All flag declarations*/
 bool processDtaFlag = false;
@@ -69,13 +63,6 @@ bool alertFlag = false;
 #define REBOOT_INTVAL 21600 //21600 - Every 6 hours Argon will perform a self reboot.
 
 
-=======
-/* All flag declarations*/
-bool processData = false;
-bool dispFlag = false;
-bool errFlag = false;
-
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
 #include "ThingSpeak.h"
 TCPClient client;
 const char * apiKey = "82B7CKNM40K0PCX0";
@@ -84,7 +71,6 @@ bool uploadFlag= false;
 
 int heightOfTank = 230; //in cm
 
-<<<<<<< HEAD
 char val[3]; char buf[7]; String data; float level = 0, levelPer =0; char levelMark[10];
 
 /*
@@ -99,24 +85,12 @@ void setup(){
   Serial.begin(115200);
   Serial1.begin(115200, SERIAL_8N1);
 
-=======
-char val[3]; char buf[7]; String data; float level = 0, levelPer =0; 
-char levelMark[10];
-
-void setup(){
-    
-  Serial.begin(115200);
-  Serial1.begin(115200, SERIAL_8N1);
-  Time.zone(+5.5);
-  
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
   ThingSpeak.begin(client);
   display.begin(SSD1306_SWITCHCAPVCC);
   display.clearDisplay();// clears the screen and buffer
   dispLogo();
   wfCing();
   wfCtd();
-<<<<<<< HEAD
 
   if(WiFi.ready())
   {
@@ -140,28 +114,6 @@ void loop()  //Compatible with nodemcu, if serials are changed accordingly
     {
       cnt++;
       data = " ";
-=======
-  
-  
-  if(WiFi.ready())
-  {
-      Particle.publish("WiFi Status","Connected Successfully now!" 
-,PUBLIC);
-  }
-  
-}
-
-int c=0;
-void loop()  //Compatible with nodemcu, if serials are changed 
-accordingly
-{
-
-
-    if(Serial1.available())
-    {
-      c++;
-      data = "";
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
       memset(val, 0, sizeof(val));
       memset(buf, 0, sizeof(buf));
       data = Serial1.readString();
@@ -169,7 +121,6 @@ accordingly
       data.toCharArray(buf, 8);
       Serial.print("Data buf is: ");
       Serial.println(data);
-<<<<<<< HEAD
       processDtaFlag = true;
     }
 
@@ -215,54 +166,11 @@ accordingly
     {
        Particle.publish("Scheduled Reboot", "System will reboot now. Bootup time appr. 2 min!" ,PUBLIC);
        System.reset();
-=======
-      processData = true;
-    }
-
-    //myString.charAt(4)
-
-    if(processData)  
-    {
-        procData(); //will return error status <errFlag> - true/false > 
-true if received data is okay
-        Particle.publish("Level:", String (level) ,PUBLIC); //see device 
-events in particle device dashboard
-        Particle.publish("Level(%):", String (levelPer) ,PUBLIC);
-        dispFlag = true;
-    }
-    
-    if(dispFlag)
-    {
-        procDisp();
-        uploadFlag=true;
-        dispFlag = false;
-        processData = false;
-    }
-
-    if(uploadFlag && !errFlag)
-    {
-      int x = ThingSpeak.writeFields(channelNum, apiKey);  
-      if(x==200)
-      {
-        Serial.println("Upload Success!");
-        Particle.publish("Thingspeak upload","Sts:Success" ,PUBLIC);
-      }
-      else
-      {
-        Serial.println("Upload status unknown");
-        Particle.publish("Thingspeak upload","Sts:Unknown/Failure" 
-,PUBLIC);
-      }
-      uploadFlag = false;
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
     }
 
 }
 
-<<<<<<< HEAD
 /*Supporting functions following*/
-=======
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
 
 /*
  ********************************************************************
@@ -288,7 +196,6 @@ void wfCing(void)
       delay(200);
       r++;
     }
-<<<<<<< HEAD
     Particle.syncTime();
     waitUntil(Particle.syncTimeDone);
     Time.zone(+5.5);
@@ -300,10 +207,6 @@ void wfCing(void)
  *
  ********************************************************************
  */
-=======
-}
-
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
 void dispLogo(void)
 {
   display.clearDisplay();
@@ -311,7 +214,6 @@ void dispLogo(void)
   display.display(); // show splashscreen
   delay(6000);
   Serial.println("*************USB OKAY***************");
-<<<<<<< HEAD
   display.clearDisplay();
 }
 /*
@@ -321,25 +223,14 @@ void dispLogo(void)
  *
  ********************************************************************
  */
-=======
-  display.clearDisplay(); 
-}
-
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
 void wfCtd(void)
 {
     int r=0;
     display.clearDisplay();
     if(WiFi.ready())
-<<<<<<< HEAD
     {
       Particle.syncTime(); delay(100);
       Particle.process();
-=======
-     {
-      Particle.syncTime(); delay(100);
-      Particle.process(); 
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
       display.clearDisplay();
       display.setCursor(0, 0);
       display.setTextColor(WHITE);
@@ -355,11 +246,7 @@ void wfCtd(void)
       display.print(Time.format(Time.now(), "%I:%M:%S%p"));
       display.display();
       delay(5000);
-<<<<<<< HEAD
     }
-=======
-     }
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
     else
     {
       display.setCursor(0, 0);
@@ -368,12 +255,7 @@ void wfCtd(void)
       display.setTextSize(1.5);
       display.println("Wi-Fi Err.");
       display.setTextSize(1);
-<<<<<<< HEAD
       display.print("Pls check connectivity.\nEnsure the antenna\nis attached.");
-=======
-      display.print("Pls check connectivity.\nEnsure the antenna\nis 
-attached.");
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
       display.display();
       while(!WiFi.ready() && r<200)
       {
@@ -392,7 +274,6 @@ attached.");
       }
     }
 }
-<<<<<<< HEAD
 /*
  ********************************************************************
  *
@@ -400,9 +281,6 @@ attached.");
  *
  ********************************************************************
  */
-=======
-
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
 void procDisp()
 {
     display.clearDisplay();
@@ -420,17 +298,10 @@ void procDisp()
     }
     else
     {
-<<<<<<< HEAD
       display.print("\n");
       //display.println(levelMark);
     }
 
-=======
-      display.print("\n"); 
-      //display.println(levelMark);
-    }
-    
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
     if(levelPer>30 && levelPer <70)
     {
       display.println("Level:Med");
@@ -444,11 +315,7 @@ void procDisp()
       if(levelPer<10)
       {
         display.setTextSize(2);
-<<<<<<< HEAD
         display.println("Turn on\nPump");
-=======
-        display.println("Turn on\nPump"); 
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
         Particle.publish("Critical:","Turn On Pump!!" ,PUBLIC);
       }
       else
@@ -471,7 +338,6 @@ void procDisp()
     display.setTextSize(1);
     display.print(level);
     display.print("cm ");
-<<<<<<< HEAD
     display.print(cnt);
     display.display();
 }
@@ -482,12 +348,6 @@ void procDisp()
  *
  ********************************************************************
  */
-=======
-    display.print(c);
-    display.display();
-}
-
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
 bool procData()
 {
     if(data.startsWith("##") && data.endsWith("##"))
@@ -502,15 +362,10 @@ bool procData()
       {
         val[2] = ' ';
       }
-<<<<<<< HEAD
       Serial.print("Raw distance measured: ");
       Serial.print(atof(val));
       Serial.println(" cm");
       errFlag = false;
-=======
-      Serial.print("val is: ");
-      Serial.println(val);
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
     }
     else
     {
@@ -518,7 +373,6 @@ bool procData()
       val[1] = 'R';
       val[2] = 'R';
       errFlag = true;
-<<<<<<< HEAD
 
       return errFlag;
     }
@@ -620,33 +474,3 @@ int handleAlerts()
     return 0;
 
 }
-=======
-    }
-    
-        level = atof(val);
-        level = heightOfTank - level;
-        if(level<0)
-        {
-            level =0;
-        }
-        levelPer = float ((level/heightOfTank)*100);
-        ThingSpeak.setField(1,level);
-        Serial.print("level float: ");
-        Serial.println(level);
-        
-        ThingSpeak.setField(2,levelPer);
-        Serial.print("level per: ");
-        Serial.print(levelPer);
-        Serial.println("%");
-        
-        //Serial.print("\n");
-        //memset(levelMark, 0, sizeof(levelMark));
-        //for(int i=0; i<=(((float (level)/203))*10) ; i++)
-        //{
-          //levelMark[i] = '|';
-        //}
-        return errFlag;
-}
-
-
->>>>>>> 07aad21d190e4c2af3cf87d566d7bb8af86846b5
